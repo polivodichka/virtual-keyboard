@@ -84,3 +84,17 @@ function replaceCharacter(newChar, e) {
   
     e.preventDefault(); // отмена стандартного функционала кнопки
   }
+
+  // ____________KEYS FUNCTIONS_____________
+
+// CapsLock key
+function CapsLock(shift, caps) {
+    keysOnPage.forEach((key) => {
+      if (currentKeyboard[key.id].type === 'letter') {
+        if (caps) key.innerHTML = shift ? key.innerHTML.toLowerCase() : key.innerHTML.toUpperCase();
+        else if (!caps) {
+          key.innerHTML = shift ? key.innerHTML.toUpperCase() : key.innerHTML.toLowerCase();
+        }
+      }
+    });
+  }
