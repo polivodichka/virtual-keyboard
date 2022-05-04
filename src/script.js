@@ -98,3 +98,18 @@ function CapsLock(shift, caps) {
       }
     });
   }
+  
+// Shift
+function Shift(shift, caps) {
+    keysOnPage.forEach((key) => {
+      if (currentKeyboard[key.id].type === 'letter' && caps) {
+        key.innerHTML = shift ? key.innerHTML.toLowerCase() : key.innerHTML.toUpperCase();
+      } else if (currentKeyboard[key.id].type === 'letter' && !caps) {
+        key.innerHTML = shift ? key.innerHTML.toUpperCase() : key.innerHTML.toLowerCase();
+      }
+      if (currentKeyboard[key.id].type === 'changable') {
+        key.innerHTML = shift ? currentKeyboard[key.id].shiftedCharacter
+          : currentKeyboard[key.id].character;
+      }
+    });
+  }
