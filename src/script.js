@@ -113,3 +113,11 @@ function Shift(shift, caps) {
       }
     });
   }
+  
+function ControlAlt(control, alt) {
+    if (control && alt) {
+      activeLang = (activeLang === 'ru' ? 'en' : 'ru');
+      localStorage.setItem('lang', activeLang);
+      changeCurrentKeyboard(activeLang);
+    }
+  }
