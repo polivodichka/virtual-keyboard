@@ -121,3 +121,41 @@ function ControlAlt(control, alt) {
       changeCurrentKeyboard(activeLang);
     }
   }
+  
+// Backspace key
+function Backspace(e) {
+    // получаем старые данные
+    const start = e.target.selectionStart;
+    const end = e.target.selectionEnd;
+    const oldValue = e.target.value;
+  
+    // считаем новое значение и заменяем на него
+    const newValue = oldValue.slice(0, start === end ? start - 1 : start) + oldValue.slice(end);
+    e.target.value = newValue;
+  
+    // смещаем курсор
+    e.target.selectionStart = start === end ? start - 1 : start;
+    e.target.selectionEnd = e.target.selectionStart;
+  
+    e.preventDefault();
+  }
+  
+  // Delete key
+  function Delete(e) {
+    // получаем старые данные
+    const start = e.target.selectionStart;
+    const end = e.target.selectionEnd;
+    const oldValue = e.target.value;
+  
+    if (!(oldValue.length > end)) return false;
+  
+    // считаем новое значение и заменяем на него
+    const newValue = oldValue.slice(0, start) + oldValue.slice(end + 1);
+    e.target.value = newValue;
+  
+    // смещаем курсор
+    e.target.selectionStart = start;
+    e.target.selectionEnd = e.target.selectionStart;
+  
+    e.preventDefault();
+  }
