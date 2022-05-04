@@ -1,0 +1,24 @@
+.active{
+    background-color: red;
+}
+textarea{
+    resize: none;
+}
+.keyboard{
+    max-width: 750px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    div{
+        min-width: 50px;
+        min-height: 50px;
+        border: 1px solid black;
+        text-align: center;
+        vertical-align: middle;
+        &#Space{
+            width: 300px;
+        }
+        
+    }
+}
