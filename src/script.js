@@ -65,3 +65,22 @@ function changeCurrentKeyboard(language) {
 }
 
 changeCurrentKeyboard(activeLang);
+
+// Replace the standard character with the desired one
+// for all LETTERS and CHANGEABLE CHARACTERS
+function replaceCharacter(newChar, e) {
+    // получаем старые данные
+    const start = e.target.selectionStart;
+    const end = e.target.selectionEnd;
+    const oldValue = e.target.value;
+  
+    // считаем новое значение и заменяем на него
+    const newValue = oldValue.slice(0, start) + newChar + oldValue.slice(end);
+    e.target.value = newValue;
+  
+    // смещаем курсор
+    e.target.selectionStart = start + 1;
+    e.target.selectionEnd = e.target.selectionStart;
+  
+    e.preventDefault(); // отмена стандартного функционала кнопки
+  }
