@@ -13,7 +13,7 @@ textarea.rows = 10;
 textarea.wrap = '\n';
 document.body.append(textarea);
 setInterval(() => {
-    textarea.focus();
+  textarea.focus();
 }, 0);
 
 const keyboard = document.createElement('div');
@@ -26,164 +26,164 @@ const currentKeyboard = {};
 let keysOnPage;
 
 async function getData() {
-    const keyboardData = 'assets/keyboard.json';
-    const res = await fetch(keyboardData);
-    const data = await res.json();
+  const keyboardData = 'assets/keyboard.json';
+  const res = await fetch(keyboardData);
+  const data = await res.json();
 
-    return data;
+  return data;
 }
 
 // fill current info about keys and add them on page if it necessary
 // reusable function
 function changeCurrentKeyboard(language) {
-    getData().then((result) => {
-        result[language].forEach((key) => {
-            if (!document.getElementById(key.eventCode)) {
-                const newKey = document.createElement('div');
-                newKey.className = key.type;
-                newKey.id = key.eventCode;
-                newKey.innerHTML = key.character;
+  getData().then((result) => {
+    result[language].forEach((key) => {
+      if (!document.getElementById(key.eventCode)) {
+        const newKey = document.createElement('div');
+        newKey.className = key.type;
+        newKey.id = key.eventCode;
+        newKey.innerHTML = key.character;
 
-                keyboard.append(newKey);
+        keyboard.append(newKey);
 
-                newKey.addEventListener('mousedown', () => {
-                    if (newKey.id === shiftLeft || newKey.id === shiftRight) textarea.dispatchEvent(new KeyboardEvent('keydown', { key: currentKeyboard[newKey.id].character, code: newKey.id, shiftKey: true }));
-                    else if (currentKeyboard[newKey.id].type === 'functional' || currentKeyboard[newKey.id].type === 'spacing') textarea.dispatchEvent(new KeyboardEvent('keydown', { key: currentKeyboard[newKey.id].character, code: newKey.id }));
-                    else textarea.dispatchEvent(new KeyboardEvent('keydown', { code: newKey.id }));
-                });
-                newKey.addEventListener('mouseup', () => {
-                    if (newKey.id === shiftLeft || shiftRight) textarea.dispatchEvent(new KeyboardEvent('keyup', { key: 'Shift', code: newKey.id, shiftKey: false }));
-                    else if (currentKeyboard[newKey.id].type === 'functional') textarea.dispatchEvent(new KeyboardEvent('keyup', { key: currentKeyboard[newKey.id].character, code: newKey.id }));
-                    else textarea.dispatchEvent(new KeyboardEvent('keyup', { code: newKey.id }));
-                });
-            } else {
-                document.getElementById(key.eventCode).innerHTML = key.character;
-            }
-            currentKeyboard[key.eventCode] = key;
-
-            keysOnPage = [...document.querySelectorAll('.keyboard div')];
+        newKey.addEventListener('mousedown', () => {
+          if (newKey.id === shiftLeft || newKey.id === shiftRight) textarea.dispatchEvent(new KeyboardEvent('keydown', { key: currentKeyboard[newKey.id].character, code: newKey.id, shiftKey: true }));
+          else if (currentKeyboard[newKey.id].type === 'functional' || currentKeyboard[newKey.id].type === 'spacing') textarea.dispatchEvent(new KeyboardEvent('keydown', { key: currentKeyboard[newKey.id].character, code: newKey.id }));
+          else textarea.dispatchEvent(new KeyboardEvent('keydown', { code: newKey.id }));
         });
+        newKey.addEventListener('mouseup', () => {
+          if (newKey.id === shiftLeft || shiftRight) textarea.dispatchEvent(new KeyboardEvent('keyup', { key: 'Shift', code: newKey.id, shiftKey: false }));
+          else if (currentKeyboard[newKey.id].type === 'functional') textarea.dispatchEvent(new KeyboardEvent('keyup', { key: currentKeyboard[newKey.id].character, code: newKey.id }));
+          else textarea.dispatchEvent(new KeyboardEvent('keyup', { code: newKey.id }));
+        });
+      } else {
+        document.getElementById(key.eventCode).innerHTML = key.character;
+      }
+      currentKeyboard[key.eventCode] = key;
+
+      keysOnPage = [...document.querySelectorAll('.keyboard div')];
     });
+  });
 }
 
 changeCurrentKeyboard(activeLang);
 
 // add listeners for keys on keyboard (run once)
 textarea.addEventListener('keydown', (e) => {
-    document.getElementById(`${e.code === '' ? `${e.key}Right` : e.code}`).classList.add('active');
+  document.getElementById(`${e.code === '' ? `${e.key}Right` : e.code}`).classList.add('active');
 
-    if (e.code === 'CapsLock') {
-        capsPressed = !capsPressed;
-        CapsLock(e.shiftKey, capsPressed);
-    } else if (e.key === 'Shift') Shift(e.shiftKey, capsPressed);
-    else if (currentKeyboard[e.code].type === 'letter'
+  if (e.code === 'CapsLock') {
+    capsPressed = !capsPressed;
+    CapsLock(e.shiftKey, capsPressed);
+  } else if (e.key === 'Shift') Shift(e.shiftKey, capsPressed);
+  else if (currentKeyboard[e.code].type === 'letter'
         || currentKeyboard[e.code].type === 'changable'
         || currentKeyboard[e.code].type === 'spacing') {
-        // eslint-disable-next-line no-nested-ternary
-        replaceCharacter(currentKeyboard[e.code].type === 'spacing' ? (
-            // eslint-disable-next-line no-nested-ternary
-            e.code === 'Enter' ? '\n'
-                : e.code === 'Tab' ? '\t' : '')
-            : document.getElementById(`${e.code}`).innerHTML, e);
-    } else if (e.code === 'Backspace') Backspace(e);
-    else if (e.code === 'Delete') Delete(e);
-    else if (e.key === 'Alt' || e.key === 'Control') ControlAlt(e.ctrlKey, e.altKey);
+    // eslint-disable-next-line no-nested-ternary
+    replaceCharacter(currentKeyboard[e.code].type === 'spacing' ? (
+      // eslint-disable-next-line no-nested-ternary
+      e.code === 'Enter' ? '\n'
+        : e.code === 'Tab' ? '\t' : '')
+      : document.getElementById(`${e.code}`).innerHTML, e);
+  } else if (e.code === 'Backspace') Backspace(e);
+  else if (e.code === 'Delete') Delete(e);
+  else if (e.key === 'Alt' || e.key === 'Control') ControlAlt(e.ctrlKey, e.altKey);
 });
 textarea.addEventListener('keyup', (e) => {
-    document.getElementById(`${e.code === '' ? `${e.key}Right` : e.code}`).classList.remove('active');
-    if (e.key === 'Shift') Shift(e.shiftKey, capsPressed);
+  document.getElementById(`${e.code === '' ? `${e.key}Right` : e.code}`).classList.remove('active');
+  if (e.key === 'Shift') Shift(e.shiftKey, capsPressed);
 });
 
 // Replace the standard character with the desired one
 // for all LETTERS and CHANGEABLE CHARACTERS
 function replaceCharacter(newChar, e) {
-    // получаем старые данные
-    const start = e.target.selectionStart;
-    const end = e.target.selectionEnd;
-    const oldValue = e.target.value;
+  // получаем старые данные
+  const start = e.target.selectionStart;
+  const end = e.target.selectionEnd;
+  const oldValue = e.target.value;
 
-    // считаем новое значение и заменяем на него
-    const newValue = oldValue.slice(0, start) + newChar + oldValue.slice(end);
-    e.target.value = newValue;
+  // считаем новое значение и заменяем на него
+  const newValue = oldValue.slice(0, start) + newChar + oldValue.slice(end);
+  e.target.value = newValue;
 
-    // смещаем курсор
-    e.target.selectionStart = start + 1;
-    e.target.selectionEnd = e.target.selectionStart;
+  // смещаем курсор
+  e.target.selectionStart = start + 1;
+  e.target.selectionEnd = e.target.selectionStart;
 
-    e.preventDefault(); // отмена стандартного функционала кнопки
+  e.preventDefault(); // отмена стандартного функционала кнопки
 }
 
 // ____________KEYS FUNCTIONS_____________
 
 // CapsLock key
 function CapsLock(shift, caps) {
-    keysOnPage.forEach((key) => {
-        if (currentKeyboard[key.id].type === 'letter') {
-            if (caps) key.innerHTML = shift ? key.innerHTML.toLowerCase() : key.innerHTML.toUpperCase();
-            else if (!caps) {
-                key.innerHTML = shift ? key.innerHTML.toUpperCase() : key.innerHTML.toLowerCase();
-            }
-        }
-    });
+  keysOnPage.forEach((key) => {
+    if (currentKeyboard[key.id].type === 'letter') {
+      if (caps) key.innerHTML = shift ? key.innerHTML.toLowerCase() : key.innerHTML.toUpperCase();
+      else if (!caps) {
+        key.innerHTML = shift ? key.innerHTML.toUpperCase() : key.innerHTML.toLowerCase();
+      }
+    }
+  });
 }
 
 // Shift & Control keys
 function Shift(shift, caps) {
-    keysOnPage.forEach((key) => {
-        if (currentKeyboard[key.id].type === 'letter' && caps) {
-            key.innerHTML = shift ? key.innerHTML.toLowerCase() : key.innerHTML.toUpperCase();
-        } else if (currentKeyboard[key.id].type === 'letter' && !caps) {
-            key.innerHTML = shift ? key.innerHTML.toUpperCase() : key.innerHTML.toLowerCase();
-        }
-        if (currentKeyboard[key.id].type === 'changable') {
-            key.innerHTML = shift ? currentKeyboard[key.id].shiftedCharacter
-                : currentKeyboard[key.id].character;
-        }
-    });
+  keysOnPage.forEach((key) => {
+    if (currentKeyboard[key.id].type === 'letter' && caps) {
+      key.innerHTML = shift ? key.innerHTML.toLowerCase() : key.innerHTML.toUpperCase();
+    } else if (currentKeyboard[key.id].type === 'letter' && !caps) {
+      key.innerHTML = shift ? key.innerHTML.toUpperCase() : key.innerHTML.toLowerCase();
+    }
+    if (currentKeyboard[key.id].type === 'changable') {
+      key.innerHTML = shift ? currentKeyboard[key.id].shiftedCharacter
+        : currentKeyboard[key.id].character;
+    }
+  });
 }
 
 function ControlAlt(control, alt) {
-    if (control && alt) {
-        activeLang = (activeLang === 'ru' ? 'en' : 'ru');
-        localStorage.setItem('lang', activeLang);
-        changeCurrentKeyboard(activeLang);
-    }
+  if (control && alt) {
+    activeLang = (activeLang === 'ru' ? 'en' : 'ru');
+    localStorage.setItem('lang', activeLang);
+    changeCurrentKeyboard(activeLang);
+  }
 }
 
 // Backspace key
 function Backspace(e) {
-    // получаем старые данные
-    const start = e.target.selectionStart;
-    const end = e.target.selectionEnd;
-    const oldValue = e.target.value;
+  // получаем старые данные
+  const start = e.target.selectionStart;
+  const end = e.target.selectionEnd;
+  const oldValue = e.target.value;
 
-    // считаем новое значение и заменяем на него
-    const newValue = oldValue.slice(0, start === end ? start - 1 : start) + oldValue.slice(end);
-    e.target.value = newValue;
+  // считаем новое значение и заменяем на него
+  const newValue = oldValue.slice(0, start === end ? start - 1 : start) + oldValue.slice(end);
+  e.target.value = newValue;
 
-    // смещаем курсор
-    e.target.selectionStart = start === end ? start - 1 : start;
-    e.target.selectionEnd = e.target.selectionStart;
+  // смещаем курсор
+  e.target.selectionStart = start === end ? start - 1 : start;
+  e.target.selectionEnd = e.target.selectionStart;
 
-    e.preventDefault();
+  e.preventDefault();
 }
 
 // Delete key
 function Delete(e) {
-    // получаем старые данные
-    const start = e.target.selectionStart;
-    const end = e.target.selectionEnd;
-    const oldValue = e.target.value;
+  // получаем старые данные
+  const start = e.target.selectionStart;
+  const end = e.target.selectionEnd;
+  const oldValue = e.target.value;
 
-    if (!(oldValue.length > end)) return false;
+  if (!(oldValue.length > end)) return false;
 
-    // считаем новое значение и заменяем на него
-    const newValue = oldValue.slice(0, start) + oldValue.slice(end + 1);
-    e.target.value = newValue;
+  // считаем новое значение и заменяем на него
+  const newValue = oldValue.slice(0, start) + oldValue.slice(end + 1);
+  e.target.value = newValue;
 
-    // смещаем курсор
-    e.target.selectionStart = start;
-    e.target.selectionEnd = e.target.selectionStart;
+  // смещаем курсор
+  e.target.selectionStart = start;
+  e.target.selectionEnd = e.target.selectionStart;
 
-    e.preventDefault();
+  e.preventDefault();
 }
