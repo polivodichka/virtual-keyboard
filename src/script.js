@@ -88,7 +88,7 @@ textarea.addEventListener('keydown', (e) => {
       : document.getElementById(`${e.code}`).innerHTML, e);
   } else if (e.code === 'Backspace') Backspace(e);
   else if (e.code === 'Delete') Delete(e);
-  else if (e.key === 'Alt' || e.key === 'Control') ControlAlt(e.ctrlKey, e.altKey);
+  else if (e.key === 'Alt' || e.key === 'Control') ControlAlt(e);
 });
 textarea.addEventListener('keyup', (e) => {
   document.getElementById(`${e.code === '' ? `${e.key}Right` : e.code}`).classList.remove('active');
@@ -143,12 +143,15 @@ function Shift(shift, caps) {
   });
 }
 
-function ControlAlt(control, alt) {
-  if (control && alt) {
+// Alt and Ctrl keys
+function ControlAlt(e) {
+  if (e.ctrlKey && e.altKey) {
     activeLang = (activeLang === 'ru' ? 'en' : 'ru');
     localStorage.setItem('lang', activeLang);
     changeCurrentKeyboard(activeLang);
   }
+
+  e.preventDefault();
 }
 
 // Backspace key
