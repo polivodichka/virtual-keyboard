@@ -4,58 +4,63 @@
 
 body {
     font-family: $mainFont;
-    font-size: 1vw;
+    font-size: 14px;
     font-weight: 800;
+
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 textarea {
     resize: none;
-    max-width: 69.5vw;
+    max-width: 695px;
+    height: 300px;
+    font-weight: 800;
 }
 
 .keyboard {
-    max-width: 69.5vw;
+    max-width: 695px;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5vw;
+    gap: 1px 0.13%;
     justify-content: space-between;
-    background-color: aquamarine;
 
     div {
-        @include size(3.85vw);
+        width: 5.8%;
+        height: 40px;
         display: flex;
         justify-content: center;
         align-items: center;
         border: 1px solid black;
-
+        transition: all 0.3s;
 
         &.active {
             background-color: red;
         }
 
         &#Backspace {
-            width: 10.8vw;
+            width: 17.8%;
         }
         &#Tab, &#Delete {
-            width: 5.05vw;
+            width: 8.7%;
         }
         &#CapsLock {
-            width: 7.4vw;
+            width: 11.68%;
         }
         &#Enter {
-            width: 11.7vw;
+            width: 18.2%;
         }
         &#ShiftRight, &#ShiftLeft{
-            width: 9.55vw;
+            width: 14.9%;
         }
         &#ControlRight, &#ControlLeft {
-            width: 5vw;
+            width: 8.5%;
         }
         &#Space {
-            width: 30.9vw;
-        }
-        &#Space {
-            width: 30.9vw;
+            width: 43.6%;
         }
 
     }
