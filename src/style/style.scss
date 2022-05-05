@@ -12,6 +12,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    background-size: 100%;
 }
 
 textarea {
@@ -19,13 +21,16 @@ textarea {
     max-width: 695px;
     height: 300px;
     font-weight: 800;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    outline: none;
 }
 
 .keyboard {
     max-width: 695px;
     display: flex;
     flex-wrap: wrap;
-    gap: 1px 0.13%;
+    gap: 2px 0.13%;
     justify-content: space-between;
 
     div {
@@ -34,7 +39,8 @@ textarea {
         display: flex;
         justify-content: center;
         align-items: center;
-        border: 1px solid black;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(100px);
         transition: all 0.3s;
 
         &.active {
@@ -44,21 +50,30 @@ textarea {
         &#Backspace {
             width: 17.8%;
         }
-        &#Tab, &#Delete {
+
+        &#Tab,
+        &#Delete {
             width: 8.7%;
         }
+
         &#CapsLock {
             width: 11.68%;
         }
+
         &#Enter {
             width: 18.2%;
         }
-        &#ShiftRight, &#ShiftLeft{
+
+        &#ShiftRight,
+        &#ShiftLeft {
             width: 14.9%;
         }
-        &#ControlRight, &#ControlLeft {
+
+        &#ControlRight,
+        &#ControlLeft {
             width: 8.5%;
         }
+
         &#Space {
             width: 43.6%;
         }

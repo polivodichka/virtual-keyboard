@@ -25,6 +25,15 @@ let capsPressed = false;
 const currentKeyboard = {};
 let keysOnPage;
 
+const apiUrl = 'https://api.unsplash.com/photos/random?query=spring&client_id=SouHY7Uul-OxoMl3LL3c0NkxUtjIrKwf3tsGk1JaiVo&orientation=landscape';
+
+async function getBgImage() {
+  const res = await fetch(apiUrl);
+  const data = await res.json();
+  document.body.style.backgroundImage = `url('${data.urls.full}')`;
+}
+getBgImage();
+
 async function getData() {
   const keyboardData = 'assets/keyboard.json';
   const res = await fetch(keyboardData);
