@@ -56,12 +56,13 @@ function changeCurrentKeyboard(language) {
           else if (currentKeyboard[newKey.id].type === 'functional') textarea.dispatchEvent(new KeyboardEvent('keyup', { key: currentKeyboard[newKey.id].character, code: newKey.id }));
           else textarea.dispatchEvent(new KeyboardEvent('keyup', { code: newKey.id }));
         });
+        keysOnPage = [...document.querySelectorAll('.keyboard div')];
       } else {
         document.getElementById(key.eventCode).innerHTML = key.character;
+        if (capsPressed) CapsLock(capsPressed);
       }
-      currentKeyboard[key.eventCode] = key;
 
-      keysOnPage = [...document.querySelectorAll('.keyboard div')];
+      currentKeyboard[key.eventCode] = key;
     });
   });
 }
@@ -74,7 +75,7 @@ textarea.addEventListener('keydown', (e) => {
 
   if (e.code === 'CapsLock') {
     capsPressed = !capsPressed;
-    CapsLock(e.shiftKey, capsPressed);
+    CapsLock(capsPressed, e.shiftKey);
   } else if (e.key === 'Shift') Shift(e.shiftKey, capsPressed);
   else if (currentKeyboard[e.code].type === 'letter'
         || currentKeyboard[e.code].type === 'changable'
@@ -97,16 +98,16 @@ textarea.addEventListener('keyup', (e) => {
 // Replace the standard character with the desired one
 // for all LETTERS and CHANGEABLE CHARACTERS
 function replaceCharacter(newChar, e) {
-  // получаем старые данные
+  // get old data
   const start = e.target.selectionStart;
   const end = e.target.selectionEnd;
   const oldValue = e.target.value;
 
-  // считаем новое значение и заменяем на него
+  // count new value and replace old value with te new one
   const newValue = oldValue.slice(0, start) + newChar + oldValue.slice(end);
   e.target.value = newValue;
 
-  // смещаем курсор
+  // move cursor
   e.target.selectionStart = start + 1;
   e.target.selectionEnd = e.target.selectionStart;
 
@@ -116,7 +117,7 @@ function replaceCharacter(newChar, e) {
 // ____________KEYS FUNCTIONS_____________
 
 // CapsLock key
-function CapsLock(shift, caps) {
+function CapsLock(caps, shift = false) {
   keysOnPage.forEach((key) => {
     if (currentKeyboard[key.id].type === 'letter') {
       if (caps) key.innerHTML = shift ? key.innerHTML.toLowerCase() : key.innerHTML.toUpperCase();
@@ -127,7 +128,7 @@ function CapsLock(shift, caps) {
   });
 }
 
-// Shift & Control keys
+// Shift key
 function Shift(shift, caps) {
   keysOnPage.forEach((key) => {
     if (currentKeyboard[key.id].type === 'letter' && caps) {
@@ -152,16 +153,16 @@ function ControlAlt(control, alt) {
 
 // Backspace key
 function Backspace(e) {
-  // получаем старые данные
+  // get old data
   const start = e.target.selectionStart;
   const end = e.target.selectionEnd;
   const oldValue = e.target.value;
 
-  // считаем новое значение и заменяем на него
+  // count new value and replace old value with te new one
   const newValue = oldValue.slice(0, start === end ? start - 1 : start) + oldValue.slice(end);
   e.target.value = newValue;
 
-  // смещаем курсор
+  // move cursor
   e.target.selectionStart = start === end ? start - 1 : start;
   e.target.selectionEnd = e.target.selectionStart;
 
@@ -170,18 +171,18 @@ function Backspace(e) {
 
 // Delete key
 function Delete(e) {
-  // получаем старые данные
+  // get old data
   const start = e.target.selectionStart;
   const end = e.target.selectionEnd;
   const oldValue = e.target.value;
 
   if (!(oldValue.length > end)) return false;
 
-  // считаем новое значение и заменяем на него
+  // count new value and replace old value with te new one
   const newValue = oldValue.slice(0, start) + oldValue.slice(end + 1);
   e.target.value = newValue;
 
-  // смещаем курсор
+  // move cursor
   e.target.selectionStart = start;
   e.target.selectionEnd = e.target.selectionStart;
 
