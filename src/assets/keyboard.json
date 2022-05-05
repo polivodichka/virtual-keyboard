@@ -297,7 +297,7 @@
         {
             "eventCode": "ControlLeft",
             "type": "functional",
-            "character": "Control",
+            "character": "Ctrl",
             "function":"return '';"
         },
         {
@@ -341,7 +341,7 @@
         {
             "eventCode": "ControlRight",
             "type": "functional",
-            "character": "Control",
+            "character": "Ctrl",
             "function":"return '';"
         }
     ],
@@ -640,7 +640,7 @@
         {
             "eventCode": "ArrowUp",
             "type": "letter",
-            "character": "&#5125"
+            "character": "&#5123"
         },
         {
             "eventCode": "ShiftRight",
@@ -651,7 +651,7 @@
         {
             "eventCode": "ControlLeft",
             "type": "functional",
-            "character": "Control",
+            "character": "Ctrl",
             "function":"return '';"
         },
         {
@@ -695,7 +695,7 @@
         {
             "eventCode": "ControlRight",
             "type": "functional",
-            "character": "Control",
+            "character": "Ctrl",
             "function":"return '';"
         }        
     ]
