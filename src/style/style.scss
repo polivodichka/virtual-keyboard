@@ -1,24 +1,62 @@
-.active{
-    background-color: red;
+@import "utils/fonts.scss";
+@import "utils/mixins.scss";
+@import "utils/vars.scss";
+
+body {
+    font-family: $mainFont;
+    font-size: 1vw;
+    font-weight: 800;
 }
-textarea{
+
+textarea {
     resize: none;
+    max-width: 69.5vw;
 }
-.keyboard{
-    max-width: 750px;
+
+.keyboard {
+    max-width: 69.5vw;
     display: flex;
     flex-wrap: wrap;
+    gap: 0.5vw;
     justify-content: space-between;
+    background-color: aquamarine;
 
-    div{
-        min-width: 50px;
-        min-height: 50px;
+    div {
+        @include size(3.85vw);
+        display: flex;
+        justify-content: center;
+        align-items: center;
         border: 1px solid black;
-        text-align: center;
-        vertical-align: middle;
-        &#Space{
-            width: 300px;
+
+
+        &.active {
+            background-color: red;
         }
-        
+
+        &#Backspace {
+            width: 10.8vw;
+        }
+        &#Tab, &#Delete {
+            width: 5.05vw;
+        }
+        &#CapsLock {
+            width: 7.4vw;
+        }
+        &#Enter {
+            width: 11.7vw;
+        }
+        &#ShiftRight, &#ShiftLeft{
+            width: 9.55vw;
+        }
+        &#ControlRight, &#ControlLeft {
+            width: 5vw;
+        }
+        &#Space {
+            width: 30.9vw;
+        }
+        &#Space {
+            width: 30.9vw;
+        }
+
     }
 }
