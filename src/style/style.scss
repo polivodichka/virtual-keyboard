@@ -24,6 +24,8 @@ textarea {
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(5px);
     outline: none;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .keyboard {
@@ -44,7 +46,7 @@ textarea {
         transition: all 0.3s;
 
         &.active {
-            background-color: red;
+            background: rgba(255, 255, 255, 0.9);
         }
 
         &#Backspace {
