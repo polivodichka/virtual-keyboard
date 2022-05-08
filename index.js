@@ -4,6 +4,11 @@ var __webpack_exports__ = {};
 
 
 
+const link = document.createElement('link');
+link.rel = 'icon';
+link.href = '/assets/keyboard-key.png';
+document.head.appendChild(link);
+
 const preloader = document.createElement('div');
 preloader.className = 'preloader';
 document.body.append(preloader);
@@ -19,11 +24,13 @@ for (let i = 0; i < preloaderPhrase.length; i += 1) {
 }
 
 window.addEventListener('load', () => {
-  document.body.classList.add('loaded_hiding');
-  window.setTimeout(() => {
-    document.body.classList.add('loaded');
-    document.body.classList.remove('loaded_hiding');
-  }, 300);
+  setTimeout(() => {
+    document.body.classList.add('loaded_hiding');
+    window.setTimeout(() => {
+      document.body.classList.add('loaded');
+      document.body.classList.remove('loaded_hiding');
+    }, 300);
+  }, 1200);
 });
 
 const shiftLeft = 'ShiftLeft';
