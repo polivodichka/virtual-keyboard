@@ -54,7 +54,7 @@ let capsPressed = false;
 const currentKeyboard = {};
 let keysOnPage;
 
-const apiUrl = 'https://api.unsplash.com/photos/random?query=spring&client_id=SouHY7Uul-OxoMl3LL3c0NkxUtjIrKwf3tsGk1JaiVo&orientation=landscape';
+const apiUrl = 'https://api.unsplash.com/photos/random?query=spring&client_id=SalW8Y5HtJH8L9YTCULQjYNAchb4gPcj97rwz4yTgYM&orientation=landscape';
 
 async function getBgImage() {
   try {
