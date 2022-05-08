@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "webpack serve --open --config ./build/webpack.dev.conf.js",
     "build": "webpack --config ./build/webpack.build.conf.js",
+    "deploy": "gh-pages -d virtual-keyboard",
     "lint": "eslint ./src/script.js"
   },
   "keywords": [],
@@ -43,6 +44,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.4.4",
+    "gh-pages": "^3.2.3",
     "normalize.css": "^8.0.1"
   },
   "browserslist": [
