@@ -1,6 +1,28 @@
 import 'normalize.css';
 import './style/style.scss';
 
+const preloader = document.createElement('div');
+preloader.className = 'preloader';
+document.body.append(preloader);
+
+const preloaderPhrase = 'virtual keyboard';
+
+for (let i = 0; i < preloaderPhrase.length; i += 1) {
+  const spanPreloader = document.createElement('span');
+  spanPreloader.className = `let${i + 1}`;
+  spanPreloader.innerHTML = preloaderPhrase[i];
+
+  preloader.append(spanPreloader);
+}
+
+window.addEventListener('load', () => {
+  document.body.classList.add('loaded_hiding');
+  window.setTimeout(() => {
+    document.body.classList.add('loaded');
+    document.body.classList.remove('loaded_hiding');
+  }, 300);
+});
+
 const shiftLeft = 'ShiftLeft';
 const shiftRight = 'ShiftRight';
 
@@ -25,12 +47,16 @@ let capsPressed = false;
 const currentKeyboard = {};
 let keysOnPage;
 
-const apiUrl = 'https://api.unsplash.com/photos/random?query=spring&client_id=SalW8Y5HtJH8L9YTCULQjYNAchb4gPcj97rwz4yTgYM&orientation=landscape';
+const apiUrl = 'https://api.unsplash.com/photos/random?query=spring&client_id=SouHY7Uul-OxoMl3LL3c0NkxUtjIrKwf3tsGk1JaiVo&orientation=landscape';
 
 async function getBgImage() {
-  const res = await fetch(apiUrl);
-  const data = await res.json();
-  document.body.style.backgroundImage = `url('${data.urls.raw}')`;
+  try {
+    const res = await fetch(apiUrl);
+    const data = await res.json();
+    document.body.style.backgroundImage = `url(${data.urls.raw})`;
+  } catch {
+    document.body.style.backgroundImage = 'url(\'../assets/images/aaron-burden-uyJ-osS2YQI-unsplash.jpg\')';
+  }
 }
 getBgImage();
 
@@ -44,7 +70,7 @@ async function getData() {
 
 // fill current info about keys and add them on page if it necessary
 // reusable function
-function changeCurrentKeyboard(language) {
+function changeCurrentKeyboard(language, shift = false) {
   getData().then((result) => {
     result[language].forEach((key) => {
       if (!document.getElementById(key.eventCode)) {
@@ -68,10 +94,12 @@ function changeCurrentKeyboard(language) {
         keysOnPage = [...document.querySelectorAll('.keyboard div')];
       } else {
         document.getElementById(key.eventCode).innerHTML = key.character;
-        if (capsPressed) CapsLock(capsPressed);
+        if (shift) Shift(true, capsPressed);
+        else if (capsPressed) CapsLock(capsPressed);
       }
 
       currentKeyboard[key.eventCode] = key;
+      textarea.placeholder = activeLang === 'ru' ? 'Клавиатура создана в операционной системе Windows\nДля переключения языка комбинация: левыe ctrl + alt' : 'The keyboard was created in the Windows operating system\nCombination to switch the language: left ctrl + alt';
     });
   });
 }
@@ -100,7 +128,9 @@ textarea.addEventListener('keydown', (e) => {
   else if (e.key === 'Alt' || e.key === 'Control') ControlAlt(e);
 });
 textarea.addEventListener('keyup', (e) => {
-  document.getElementById(`${e.code === '' ? `${e.key}Right` : e.code}`).classList.remove('active');
+  setTimeout(() => {
+    document.getElementById(`${e.code === '' ? `${e.key}Right` : e.code}`).classList.remove('active');
+  }, 300);
   if (e.key === 'Shift') Shift(e.shiftKey, capsPressed);
 });
 
@@ -157,7 +187,7 @@ function ControlAlt(e) {
   if (e.ctrlKey && e.altKey) {
     activeLang = (activeLang === 'ru' ? 'en' : 'ru');
     localStorage.setItem('lang', activeLang);
-    changeCurrentKeyboard(activeLang);
+    changeCurrentKeyboard(activeLang, e.shiftKey);
   }
 
   e.preventDefault();

@@ -1,6 +1,9 @@
+
+@import "preloader.scss";
 @import "utils/fonts.scss";
 @import "utils/mixins.scss";
 @import "utils/vars.scss";
+
 
 body {
     font-family: $mainFont;
@@ -26,6 +29,11 @@ textarea {
     outline: none;
 
     border: 1px solid rgba(0, 0, 0, 0.2);
+
+    &::placeholder{
+        font-family: $mainFont;
+        font-weight: 800;
+    }
 }
 
 .keyboard {
@@ -34,6 +42,7 @@ textarea {
     flex-wrap: wrap;
     gap: 2px 0.13%;
     justify-content: space-between;
+    overflow: hidden;
 
     div {
         width: 5.8%;
@@ -41,12 +50,23 @@ textarea {
         display: flex;
         justify-content: center;
         align-items: center;
-        background: rgba(255, 255, 255, 0.2);
+        background-color: rgba(255, 255, 255, 0.2);
         backdrop-filter: blur(100px);
-        transition: all 0.3s;
+        transition: all 0.2s ease-in-out;
+        border: 1px solid transparent;
+        cursor: default;
+        z-index: 10;
 
-        &.active {
-            background: rgba(255, 255, 255, 0.9);
+        &.active, &:hover.active {
+            box-shadow: 0 0 0 30px rgba(255, 255, 255, 0);
+            z-index: 1;
+            animation: pulse 0.5s infinite;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-color: transparent;
+        }
+        &:hover{
+            background-color: rgba(255, 255, 255, 0.5);
+            border-color: #fff;
         }
 
         &#Backspace {
@@ -81,4 +101,8 @@ textarea {
         }
 
     }
+}
+
+@keyframes pulse{
+	0%{ box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.9);}
 }
