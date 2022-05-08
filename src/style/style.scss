@@ -32,7 +32,8 @@ textarea {
 
     &::placeholder{
         font-family: $mainFont;
-        font-weight: 800;
+        font-weight: 100;
+        color: #191a1a;
     }
 }
 
