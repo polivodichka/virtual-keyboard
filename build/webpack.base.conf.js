@@ -23,8 +23,7 @@ module.exports = {
 
   output: {
     filename: `[name].js`, //`${PATHS.assets}js/[name].[hash].js`,
-    path: path.resolve(__dirname, PATHS.dist),
-    publicPath: '/',
+    path: path.resolve(__dirname, PATHS.dist)
   },
 
   plugins: [
