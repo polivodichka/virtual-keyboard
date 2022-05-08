@@ -21,10 +21,12 @@ for (let i = 0; i < preloaderPhrase.length; i += 1) {
 }
 
 window.addEventListener('load', () => {
-  document.body.classList.add('loaded_hiding');
-  window.setTimeout(() => {
-    document.body.classList.add('loaded');
-    document.body.classList.remove('loaded_hiding');
+  setTimeout(() => {
+    document.body.classList.add('loaded_hiding');
+    window.setTimeout(() => {
+      document.body.classList.add('loaded');
+      document.body.classList.remove('loaded_hiding');
+    }, 300);
   }, 300);
 });
 
