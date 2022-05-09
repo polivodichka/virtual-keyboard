@@ -3,7 +3,7 @@ import './style/style.scss';
 
 const link = document.createElement('link');
 link.rel = 'icon';
-link.href = '/assets/keyboard-key.png';
+link.href = 'assets/keyboard-key.png';
 document.head.appendChild(link);
 
 const preloader = document.createElement('div');
