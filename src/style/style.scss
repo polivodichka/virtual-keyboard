@@ -32,8 +32,8 @@ textarea {
 
     &::placeholder{
         font-family: $mainFont;
-        font-weight: 100;
-        color: #191a1a;
+        font-weight: 700;
+        color: black;
     }
 }
 
@@ -53,7 +53,6 @@ textarea {
         align-items: center;
         background-color: rgba(255, 255, 255, 0.2);
         backdrop-filter: blur(100px);
-        transition: all 0.2s ease-in-out;
         border: 1px solid transparent;
         cursor: default;
         z-index: 10;
@@ -61,7 +60,7 @@ textarea {
         &.active, &:hover.active {
             box-shadow: 0 0 0 30px rgba(255, 255, 255, 0);
             z-index: 1;
-            animation: pulse 0.5s infinite;
+            animation: pulse 0.5s;
             background-color: rgba(255, 255, 255, 0.9);
             border-color: transparent;
         }
