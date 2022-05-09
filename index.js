@@ -132,7 +132,7 @@ textarea.addEventListener('keydown', (e) => {
       // eslint-disable-next-line no-nested-ternary
       e.code === 'Enter' ? '\n'
         : e.code === 'Tab' ? '\t' : '')
-      : document.getElementById(`${e.code}`).innerHTML, e);
+      : document.getElementById(`${e.code}`).textContent, e);
   } else if (e.code === 'Backspace') Backspace(e);
   else if (e.code === 'Delete') Delete(e);
   else if (e.key === 'Alt' || e.key === 'Control') ControlAlt(e);
