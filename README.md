@@ -2,7 +2,7 @@
 
 Virtual keyboard with a random background image (image obtained using unsplash api) and the ability to switch languages between Russian and English. The language is saved after the page is reloaded. The keys light up every time you click the mouse or use the physical keyboard.
 
-Keyboard was created as solution to the [task](https://github.com/rolling-scopes-school/tasks/blob/master/tasks/js30%23/js30-2.md) в рамках курса [JavaScript/Front-end. Stage 1](https://rs.school/js/).
+Keyboard was created as solution to the [task](https://github.com/rolling-scopes-school/tasks/blob/master/tasks/js30%23/js30-2.md) within the course [JavaScript/Front-end. Stage 1](https://rs.school/js/).
 
 ---
 ### Specificity:
