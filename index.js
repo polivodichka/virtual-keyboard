@@ -35,6 +35,14 @@ window.addEventListener('load', () => {
 
 const shiftLeft = 'ShiftLeft';
 const shiftRight = 'ShiftRight';
+const allowedСodes = [
+  0, 8, 9, 13, 16, 16, 17, 18, 20, 32, 37, 38,
+  39, 40, 46, 48, 49, 50, 51, 52, 53, 54, 55, 56,
+  57, 58, 59, 61, 65, 66, 67, 68, 69, 70, 71, 72, 73,
+  74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,
+  86, 87, 88, 89, 90, 91, 92, 108, 109, 160, 186, 188, 190, 191, 192,
+  220, 221, 222,
+];
 
 let activeLang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'ru';
 localStorage.setItem('lang', activeLang);
@@ -117,9 +125,10 @@ function changeCurrentKeyboard(language, shift = false) {
 changeCurrentKeyboard(activeLang);
 
 // add listeners for keys on keyboard (run once)
+// eslint-disable-next-line consistent-return
 textarea.addEventListener('keydown', (e) => {
+  if (!allowedСodes.includes(e.keyCode)) return false;
   document.getElementById(`${e.code === '' ? `${e.key}Right` : e.code}`).classList.add('active');
-
   if (e.code === 'CapsLock') {
     capsPressed = !capsPressed;
     CapsLock(capsPressed, e.shiftKey);
@@ -137,7 +146,9 @@ textarea.addEventListener('keydown', (e) => {
   else if (e.code === 'Delete') Delete(e);
   else if (e.key === 'Alt' || e.key === 'Control') ControlAlt(e);
 });
+// eslint-disable-next-line consistent-return
 textarea.addEventListener('keyup', (e) => {
+  if (!allowedСodes.includes(e.keyCode)) return false;
   setTimeout(() => {
     document.getElementById(`${e.code === '' ? `${e.key}Right` : e.code}`).classList.remove('active');
   }, 300);
